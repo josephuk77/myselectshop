@@ -1,6 +1,7 @@
 package com.sparta.myselectshop.entity;
 
 import com.sparta.myselectshop.dto.ProductRequestDto;
+import com.sparta.myselectshop.naver.dto.ProductMypriceRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,5 +43,9 @@ public class Product extends Timestamped {
         this.image = requestDto.getImage();
         this.link = requestDto.getLink();
         this.lprice = requestDto.getLprice();
+    }
+
+    public void update(ProductMypriceRequestDto productMypriceRequestDto) {
+        this.myprice = productMypriceRequestDto.getMyprice();
     }
 }
