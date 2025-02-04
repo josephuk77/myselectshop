@@ -33,4 +33,9 @@ public class NaverApiController {
     public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto productMypriceRequestDto) {
         return  productService.updateProduct(id, productMypriceRequestDto);
     }
+
+    @GetMapping("/products")
+    public List<ProductResponseDto> getProducts() {
+        return productService.getProduct();
+    }
 }

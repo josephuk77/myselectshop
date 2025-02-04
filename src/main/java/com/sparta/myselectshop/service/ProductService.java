@@ -6,6 +6,8 @@ import com.sparta.myselectshop.entity.Product;
 import com.sparta.myselectshop.naver.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.repository.ProductRepository;
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +38,16 @@ public class ProductService {
         productRepository.save(product);
 
         return new ProductResponseDto(product);
+    }
+
+    public List<ProductResponseDto> getProduct() {
+        List<Product> productList = productRepository.findAll();
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+
+        for (Product product : productList) {
+            productResponseDtoList.add(new ProductResponseDto(product));
+        }
+
+        return productResponseDtoList;
     }
 }
