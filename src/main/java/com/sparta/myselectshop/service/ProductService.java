@@ -36,7 +36,6 @@ public class ProductService {
         );
 
         product.update(productMypriceRequestDto);
-        productRepository.save(product);
 
         return new ProductResponseDto(product);
     }
