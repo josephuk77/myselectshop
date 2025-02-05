@@ -29,7 +29,7 @@ public class ProductService {
     public static final int MIN_MY_PRICE = 100;
     private final ProductRepository productRepository;
     private final FolderRepository folderRepository;
-    private final ProductFolderRepository productFolderRepository
+    private final ProductFolderRepository productFolderRepository;
 
     public ProductResponseDto createProduct(ProductRequestDto productRequestDto, User user) {
         Product product = productRepository.save(new Product(productRequestDto, user));
@@ -101,5 +101,18 @@ public class ProductService {
         }
 
         productFolderRepository.save(new ProductFolder(product, folder));
+    }
+
+    public Page<ProductResponseDto> getProductsInFolder(Long folderId, int page, int size, String sortBy, Boolean isAsc, User user) {
+
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Product> productList = productRepository.findAllByUserAndProductFolderList_FolderId(user, folderId, pageable);
+
+        Page<ProductResponseDto> responseDtoList = productList.map(ProductResponseDto::new);
+
+        return responseDtoList;
     }
 }
